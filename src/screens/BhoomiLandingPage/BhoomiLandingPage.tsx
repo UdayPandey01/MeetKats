@@ -1,14 +1,27 @@
-import React from "react";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import { Separator } from "../../components/ui/separator";
-import { Cards } from "./sections/Cards";
-import { CardsWrapper } from "./sections/CardsWrapper/CardsWrapper";
 import { DivWrapper } from "./sections/DivWrapper/DivWrapper";
 import { ElementFaq } from "./sections/ElementFaq";
 import { FooterBlock } from "./sections/FooterBlock";
 import { Frame } from "./sections/Frame";
 import { FrameWrapper } from "./sections/FrameWrapper";
+import { FeatureCards } from "./sections/Cards/Cards";
+import { FcGoogle } from "react-icons/fc";
+import { TfiApple } from "react-icons/tfi";
+import { MdEmail } from "react-icons/md";
+import { useState } from "react";
+import { IconType } from "react-icons";
+import { FC } from "react";
+
+interface AuthButton {
+  id: string;
+  text: string;
+  icon: IconType;
+  bgColor: string;
+  textColor: string;
+  hoverBg: string;
+}
 
 export const BhoomiLandingPage = (): JSX.Element => {
   // Navigation menu items
@@ -26,6 +39,35 @@ export const BhoomiLandingPage = (): JSX.Element => {
     { title: "Join a circle or create one.", description: "" },
     { title: "Match, meet, grow!", description: "" },
     { title: "Attend, host events in your niche.", description: "" },
+  ];
+
+  const [hovered, setHovered] = useState<string | null>(null);
+
+  const buttons: AuthButton[] = [
+    {
+      id: "google",
+      text: "Continue with Google",
+      icon: FcGoogle,
+      bgColor: "bg-white",
+      textColor: "text-gray-700",
+      hoverBg: "hover:bg-gray-50",
+    },
+    {
+      id: "apple",
+      text: "Continue with Apple",
+      icon: TfiApple,
+      bgColor: "bg-black",
+      textColor: "text-white",
+      hoverBg: "hover:bg-gray-900",
+    },
+    {
+      id: "email",
+      text: "Sign in with Email",
+      icon: MdEmail,
+      bgColor: "bg-white",
+      textColor: "text-gray-700",
+      hoverBg: "hover:bg-gray-50",
+    },
   ];
 
   return (
@@ -72,7 +114,7 @@ export const BhoomiLandingPage = (): JSX.Element => {
 
         {/* Hero Section */}
         <section className="flex flex-row mt-16 px-8">
-          <div className="flex-1">
+          <div className="flex-1 ">
             <h1 className="[font-family:'Poppins',Helvetica] font-semibold text-black text-5xl leading-[67.2px]">
               Your Inner Circle <br />
               Just Got Bigger.
@@ -83,48 +125,43 @@ export const BhoomiLandingPage = (): JSX.Element => {
             </p>
 
             {/* Auth Buttons */}
-            <div className="mt-16 space-y-4 max-w-[284px]">
-              <Button
-                variant="outline"
-                className="w-full flex items-center gap-4 bg-[#4285f4] text-[#0000008a] rounded-[10px] shadow-[0px_2px_3px_#0000002b,0px_0px_3px_#00000015] [font-family:'Poppins',Helvetica] font-bold text-[15px] justify-start"
-              >
-                <div className="w-6 h-6 bg-white flex items-center justify-center">
-                  <img
-                    className="w-[23px] h-[23px]"
-                    alt="Logo googleg"
-                    src="/logo-googleg-48dp.png"
-                  />
-                </div>
-                Continue with Google
-              </Button>
-
-              <Button
-                variant="outline"
-                className="w-full flex items-center gap-4 bg-black text-white rounded-[10px] [font-family:'Poppins',Helvetica] font-bold text-[15px] justify-start"
-              >
-                <img
-                  className="w-6 h-6"
-                  alt="Apple logo"
-                  src="/apple-logo.svg"
-                />
-                Continue with Apple
-              </Button>
-
-              <Button
-                variant="outline"
-                className="w-full flex items-center gap-4 bg-white text-[#0000008a] rounded-[10px] shadow-[0px_2px_3px_#0000002b,0px_0px_3px_#00000015] [font-family:'Poppins',Helvetica] font-bold text-[15px] justify-center"
-              >
-                Sign in with email
-              </Button>
+            <div className="mt-8 space-y-2 max-w-sm">
+              {buttons.map((button) => (
+                <button
+                  key={button.id}
+                  className={`w-72 flex justify-center items-center gap-3 ${
+                    button.bgColor
+                  } ${button.textColor} ${
+                    button.hoverBg
+                  } rounded-lg shadow-md border border-gray-200 font-medium text-base justify-center h-12 transition-all duration-300 transform ${
+                    hovered === button.id ? "scale-[1.02]" : ""
+                  }`}
+                  onMouseEnter={() => setHovered(button.id)}
+                  onMouseLeave={() => setHovered(null)}
+                >
+                  <div
+                    className={`${
+                      button.id === "google" ? "bg-transparent" : ""
+                    } flex items-center justify-center`}
+                  >
+                    {button.icon({
+                      size: 20,
+                      className: button.id === "email" ? "text-blue-600" : "",
+                    })}
+                  </div>
+                  <span>{button.text}</span>
+                </button>
+              ))}
             </div>
 
-            <p className="mt-16 [font-family:'Inter',Helvetica] font-normal text-center text-sm">
-              <span className="text-[#616161]">Are you a Newbie?</span>
-              <span className="text-[#424242]">&nbsp;</span>
-              <span className="font-semibold text-[#21ab77]">
-                Join MeetKats - IT&#39;S FREE
-              </span>
-            </p>
+            <div className="mt-16 flex items-center">
+              <p className="font-inter text-sm flex items-center gap-1.5">
+                <span className="text-[#616161]">Are you a Newbie?</span>
+                <span className="font-semibold text-[#21ab77] hover:underline cursor-pointer">
+                  Join MeetKats - IT&#39;S FREE
+                </span>
+              </p>
+            </div>
           </div>
 
           {/* Hero Images */}
@@ -610,36 +647,14 @@ export const BhoomiLandingPage = (): JSX.Element => {
         </section>
 
         {/* What MeetKats Can Offer Section */}
-        <section className="mt-32 px-8">
+        <section className="mt-40 px-8">
           <h2 className="[font-family:'Inter',Helvetica] font-semibold text-black text-6xl tracking-[-1.20px] text-center mb-16">
             What MeetKats Can Offer
           </h2>
 
           {/* Feature Cards */}
           <div className="flex flex-wrap justify-center gap-8">
-            <Cards />
-            <CardsWrapper />
-
-            <Card className="w-[272px] bg-[#fee1e4] rounded-xl">
-              <CardContent className="pt-8">
-                <div className="flex flex-col items-center">
-                  <div className="w-[172px] h-[142px] flex justify-center">
-                    <img
-                      className="w-[75px] h-24 -mt-6"
-                      alt="Carbon growth"
-                      src="/carbon-growth.svg"
-                    />
-                  </div>
-                  <h3 className="[font-family:'Inter',Helvetica] font-bold text-[#2b2b2b] text-2xl text-center mt-2">
-                    Real Impact
-                  </h3>
-                  <p className="[font-family:'Inter',Helvetica] font-medium text-[#2b2b2b] text-[17px] text-center mt-4">
-                    Not just numbers. Build a meaningful network that helps you
-                    move forward.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+            <FeatureCards />
           </div>
 
           <FrameWrapper />
@@ -654,7 +669,7 @@ export const BhoomiLandingPage = (): JSX.Element => {
             <Separator className="absolute w-[1099px] h-px top-[57px] left-[21px]" />
             <DivWrapper />
 
-            <div className="flex justify-between mt-24 px-8">
+            <div className="flex justify-between mt-24 ">
               {howItWorksSteps.map((step, index) => (
                 <div key={index} className="w-[216px] text-center">
                   <h3 className="[font-family:'Inter',Helvetica] font-normal text-black text-2xl tracking-[-0.48px]">

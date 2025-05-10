@@ -22,7 +22,7 @@ export const FrameWrapper = (): JSX.Element => {
   ];
 
   return (
-    <section className="relative w-full py-20 bg-[#e2ecda]">
+    <section className="relative w-full py-20 mt-10 bg-[#e2ecda]">
       <div className="container mx-auto px-4">
         <h2 className="text-6xl font-semibold text-black text-center tracking-[-1.20px] mb-16 font-['Inter',Helvetica]">
           LinkedIn vs MeetKats
@@ -68,8 +68,8 @@ export const FrameWrapper = (): JSX.Element => {
                   className="flex items-start gap-[52px]"
                 >
                   <div className="relative w-8 h-8 flex-shrink-0">
-                    <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
-                      <CheckIcon className="w-[25px] h-[26px] text-white" />
+                    <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+                      <CheckIcon className="w-[25px] h-[26px] text-blue-300 " />
                     </div>
                   </div>
                   <p className="font-medium text-[#191a15] text-lg leading-[30px] font-['Inter',Helvetica]">
