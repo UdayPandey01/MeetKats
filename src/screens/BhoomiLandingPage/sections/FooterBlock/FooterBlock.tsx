@@ -12,8 +12,8 @@ export const FooterBlock = () => {
 
   const contactInfo = [
     { label: "Email", value: "official@meetkats.com" },
-    { label: "Phone", value: "555-567-8901" },
-    { label: "Address", value: "1234 Main St, Baker City, Xyz State 12345" },
+    { label: "Phone", value: "+91 987654321" },
+    { label: "Address", value: "237/3C ROOMA KANPUR" },
   ];
 
   const links = [
