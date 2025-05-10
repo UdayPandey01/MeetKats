@@ -1,81 +1,105 @@
-import { LinkedinIcon, TwitterIcon } from "lucide-react";
+import { Linkedin, Twitter, Instagram } from "lucide-react";
 import React from "react";
 import { Card, CardContent } from "../../../../components/ui/card";
 import { Separator } from "../../../../components/ui/separator";
 
-export const FooterBlock = (): JSX.Element => {
+export const FooterBlock = () => {
+  const socialIcons = [
+    { Icon: Linkedin, label: "LinkedIn",href:"https://www.linkedin.com/company/meetkats/" },
+    { Icon: Instagram, label: "Instagram",href:"https://www.instagram.com/meetkats?igsh=MmlvdXh0Zmp0cGJ6" },
+    { Icon: Twitter, label: "Twitter",href:"#" }
+  ];
+
   const contactInfo = [
-    { label: "Email: official@meetkats.com" },
-    { label: "Phone: 555-567-8901" },
-    { label: "Address: 1234 Main St\nBaker City, Xyz State 12345" },
+    { label: "Email", value: "official@meetkats.com" },
+    { label: "Phone", value: "555-567-8901" },
+    { label: "Address", value: "1234 Main St, Baker City, Xyz State 12345" },
+  ];
+
+  const links = [
+    { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Terms of Service", href: "/terms" },
+    { label: "FAQ", href: "/faq" }
   ];
 
   return (
-    <div className="flex flex-col w-full items-start gap-2.5 px-[100px] py-0">
-      <Card className="w-full border-none bg-softgreen rounded-[45px_45px_0px_0px] shadow-none">
-        <CardContent className="flex flex-col items-start gap-[50px] pt-[55px] pb-[50px] px-[60px]">
-          <div className="flex w-[140px] items-center gap-[155px]">
-            <div className="inline-flex items-start gap-5">
-              <div className="relative w-[30px] h-[30px] bg-white rounded-[15px] flex items-center justify-center">
-                <LinkedinIcon className="w-[15px] h-[15px]" />
-              </div>
-
-              <img
-                className="relative w-[30px] h-[30px]"
-                alt="Social icon"
-                src="/social-icon.svg"
-              />
-
-              <div className="relative w-[30px] h-[30px] bg-white rounded-[15px] flex items-center justify-center">
-                <TwitterIcon className="w-[18px] h-3.5" />
-              </div>
-            </div>
-          </div>
-
-          <div className="inline-flex flex-col items-start gap-[66px]">
-            <div className="inline-flex items-start gap-[154px]">
-              <div className="inline-flex flex-col items-start gap-[27px]">
-                <div className="inline-flex flex-col items-start">
-                  <div className="inline-flex flex-col items-start gap-2.5 px-[7px] py-0 bg-base-green rounded-[7px]">
-                    <div className="relative w-fit mt-[-1.00px] font-h-4 font-[number:var(--h-4-font-weight)] text-black text-[length:var(--h-4-font-size)] tracking-[var(--h-4-letter-spacing)] leading-[var(--h-4-line-height)] [font-style:var(--h-4-font-style)]">
-                      Contact us:
-                    </div>
+    <div className="w-full px-4 sm:px-6 md:px-12 lg:px-24">
+      <Card className="w-full border-none bg-softgreen rounded-t-3xl shadow-none">
+        <CardContent className="p-6 md:p-10 lg:p-12">
+          {/* Top Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-10">
+            {/* Social Media */}
+            <div className="flex flex-col space-y-4">
+              <h3 className="text-lg font-semibold text-dark-green bg-base-green w-fit px-2 py-1 rounded">
+                Connect with us
+              </h3>
+              <div className="flex items-center space-x-4">
+                {socialIcons.map(({ Icon, label,href }) => (
+                  <div 
+                    key={label}
+                    className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors"
+                    aria-label={label}
+                  >
+                    <a href={href} className="flex items-center justify-center" target="_blank" rel="noopener noreferrer">
+                    <Icon className="w-4 h-4 text-dark-green" />
+                    </a>
                   </div>
-                </div>
+                ))}
+              </div>
+            </div>
 
-                <div className="inline-flex flex-col items-start gap-5">
-                  {contactInfo.map((item, index) => (
-                    <div
-                      key={index}
-                      className="relative w-fit font-p font-[number:var(--p-font-weight)] text-dark-green text-[length:var(--p-font-size)] tracking-[var(--p-letter-spacing)] leading-[var(--p-line-height)] [font-style:var(--p-font-style)]"
-                    >
-                      {item.label.includes("\n") ? (
-                        <>
-                          {item.label.split("\n")[0]}
-                          <br />
-                          {item.label.split("\n")[1]}
-                        </>
-                      ) : (
-                        item.label
-                      )}
-                    </div>
-                  ))}
-                </div>
+            {/* Contact Info */}
+            <div className="flex flex-col space-y-4">
+              <h3 className="text-lg font-semibold text-dark-green bg-base-green w-fit px-2 py-1 rounded">
+                Contact us
+              </h3>
+              <div className="space-y-3">
+                {contactInfo.map(({ label, value }) => (
+                  <div key={label} className="text-dark-green">
+                    <span className="font-medium">{label}: </span>
+                    {value}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div className="flex flex-col space-y-4">
+              <h3 className="text-lg font-semibold text-dark-green bg-base-green w-fit px-2 py-1 rounded">
+                Quick Links
+              </h3>
+              <div className="flex flex-col space-y-2">
+                {links.map(({ label, href }) => (
+                  <a 
+                    key={label}
+                    href={href}
+                    className="text-dark-green hover:underline transition-all"
+                  >
+                    {label}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
 
-          <div className="inline-flex flex-col items-start gap-[50px] w-full">
-            <Separator className="w-full h-px bg-dark-green/20" />
-
-            <div className="inline-flex items-start gap-10">
-              <div className="relative w-fit mt-[-1.00px] [font-family:'Space_Grotesk',Helvetica] font-normal text-dark-green text-lg tracking-[0] leading-7 whitespace-nowrap">
-                © 2023 Meetkats. All Rights Reserved.
-              </div>
-
-              <div className="relative w-fit mt-[-1.00px] [font-family:'Space_Grotesk',Helvetica] font-normal text-dark-green text-lg tracking-[0] leading-7 underline whitespace-nowrap">
-                Privacy Policy
-              </div>
+          {/* Bottom Section */}
+          <Separator className="w-full h-px bg-dark-green/20 mb-6" />
+          
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div className="text-dark-green text-sm md:text-base">
+              © {new Date().getFullYear()} Meetkats. All Rights Reserved.
+            </div>
+            
+            <div className="flex space-x-4 text-sm md:text-base">
+              {links.slice(0, 2).map(({ label, href }) => (
+                <a 
+                  key={label}
+                  href={href}
+                  className="text-dark-green hover:underline transition-all"
+                >
+                  {label}
+                </a>
+              ))}
             </div>
           </div>
         </CardContent>
