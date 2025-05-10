@@ -1,0 +1,1 @@
+export { ElementFaq } from "./ElementFaq";
