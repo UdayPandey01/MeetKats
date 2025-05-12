@@ -19,7 +19,7 @@ export const BhoomiLandingPage = (): JSX.Element => {
         <HeroSection />
 
         {/* What MeetKats Can Offer Section */}
-        <section className="mt-40 px-8">
+        <section id="features" className="mt-40 px-8">
           <h2 className="[font-family:'Inter',Helvetica] font-semibold text-black text-6xl tracking-[-1.20px] text-center mb-16">
             What MeetKats Can Offer
           </h2>

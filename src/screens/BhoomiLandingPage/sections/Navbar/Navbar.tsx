@@ -6,8 +6,8 @@ const Header = () => {
 
   const navItems = [
     { name: "Home", href: "#" },
-    { name: "Features", href: "#" },
-    { name: "Why MeetKats", href: "#" },
+    { name: "Features", href: "#features" },
+    { name: "Why MeetKats", href: "#whymeetkats" },
     { name: "Events", href: "#" },
     { name: "Contact", href: "#" },
   ];
@@ -39,7 +39,7 @@ const Header = () => {
           onClick={toggleMenu}
           aria-label="Toggle navigation menu"
         >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMenuOpen ? <X size={24}/> : <Menu size={24} />}
         </button>
 
         {/* Desktop Navigation */}

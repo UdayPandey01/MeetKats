@@ -22,7 +22,7 @@ export const FrameWrapper = (): JSX.Element => {
   ];
 
   return (
-    <section className="relative w-full py-20 mt-10 bg-[#e2ecda]">
+    <section id="whymeetkats" className="relative w-full py-20 mt-10 bg-[#e2ecda]">
       <div className="container mx-auto px-4">
         <h2 className="text-6xl font-semibold text-black text-center tracking-[-1.20px] mb-16 font-['Inter',Helvetica]">
           LinkedIn vs MeetKats
