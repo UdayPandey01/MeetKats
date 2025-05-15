@@ -2,10 +2,9 @@ import { useState } from 'react';
 import { FcGoogle } from "react-icons/fc";
 import { TfiApple } from "react-icons/tfi";
 import { MdEmail } from "react-icons/md";
-import { IconType } from "react-icons";
 
 const HeroSection = () => {
-  const [hovered, setHovered] = useState<string | null>(null);
+  const [hovered, setHovered] = useState(null);
 
   const buttons = [
     {

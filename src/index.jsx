@@ -5,7 +5,7 @@ import EventsPage from "./screens/EventsPage/EventsPage";
 
 createRoot(document.getElementById("app")).render(
   <StrictMode>
-    {/* <BhoomiLandingPage /> */}
-    <EventsPage />
+    <BhoomiLandingPage />
+    {/* <EventsPage /> */}
   </StrictMode>,
 );

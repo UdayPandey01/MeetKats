@@ -5,10 +5,7 @@ import { cn } from "../../lib/utils";
 
 const Accordion = AccordionPrimitive.Root;
 
-const AccordionItem = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
->(({ className, ...props }, ref) => (
+const AccordionItem = React.forwardRef(({ className, ...props }, ref) => (
   <AccordionPrimitive.Item
     ref={ref}
     className={cn("border-b", className)}
@@ -17,16 +14,11 @@ const AccordionItem = React.forwardRef<
 ));
 AccordionItem.displayName = "AccordionItem";
 
-const AccordionTrigger = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
->(({ className, children, ...props }, ref) => {
-  // Create a state to track the open/closed state of the accordion trigger
+const AccordionTrigger = React.forwardRef(({ className, children, ...props }, ref) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const triggerRef = React.useRef<HTMLButtonElement>(null);
-  
-  // Combine the ref from forwardRef with our own ref
-  const combinedRef = (node: HTMLButtonElement) => {
+  const triggerRef = React.useRef(null);
+
+  const combinedRef = (node) => {
     if (ref) {
       if (typeof ref === 'function') {
         ref(node);
@@ -36,16 +28,14 @@ const AccordionTrigger = React.forwardRef<
     }
     triggerRef.current = node;
   };
-  
-  // Use effect to watch for data-state changes to update our state
+
   React.useEffect(() => {
     const handleStateChange = () => {
       if (triggerRef.current) {
         setIsOpen(triggerRef.current.getAttribute('data-state') === 'open');
       }
     };
-    
-    // Add a mutation observer to watch for attribute changes
+
     if (triggerRef.current) {
       const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
@@ -57,16 +47,15 @@ const AccordionTrigger = React.forwardRef<
           }
         });
       });
-      
+
       observer.observe(triggerRef.current, { attributes: true });
-      
-      // Initial state check
+
       handleStateChange();
-      
+
       return () => observer.disconnect();
     }
   }, []);
-  
+
   return (
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
@@ -76,7 +65,7 @@ const AccordionTrigger = React.forwardRef<
           className,
         )}
         onClick={() => {
-          // This will be updated by the mutation observer after the state actually changes
+          // No-op, handled by mutation observer
         }}
         {...props}
       >
@@ -106,10 +95,7 @@ const AccordionTrigger = React.forwardRef<
 });
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
 
-const AccordionContent = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
->(({ className, children, ...props }, ref) => (
+const AccordionContent = React.forwardRef(({ className, children, ...props }, ref) => (
   <AccordionPrimitive.Content
     ref={ref}
     className="overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
