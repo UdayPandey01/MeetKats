@@ -3,19 +3,11 @@ import { FcGoogle } from "react-icons/fc";
 import { TfiApple } from "react-icons/tfi";
 import { MdEmail } from "react-icons/md";
 import { IconType } from "react-icons";
-interface AuthButton {
-  id: string;
-  text: string;
-  icon: IconType;
-  bgColor: string;
-  textColor: string;
-  hoverBg: string;
-}
 
 const HeroSection = () => {
   const [hovered, setHovered] = useState<string | null>(null);
 
-  const buttons: AuthButton[] = [
+  const buttons = [
     {
       id: "google",
       text: "Continue with Google",

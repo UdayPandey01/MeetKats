@@ -2,7 +2,7 @@ import { CheckIcon, XIcon } from "lucide-react";
 import React from "react";
 import { Separator } from "../../../../components/ui/separator";
 
-export const FrameWrapper = (): JSX.Element => {
+export const FrameWrapper = ()=> {
   // LinkedIn features data
   const linkedinFeatures = [
     "Broad, global, often impersonal",

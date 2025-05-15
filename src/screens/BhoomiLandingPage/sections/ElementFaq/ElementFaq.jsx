@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
 } from "../../../../components/ui/accordion";
 
-export const ElementFaq = (): JSX.Element => {
+export const ElementFaq = ()=> {
   // FAQ data with complete answers
   const faqItems = [
     {

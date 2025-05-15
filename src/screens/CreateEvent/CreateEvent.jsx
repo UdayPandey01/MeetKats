@@ -3,18 +3,6 @@ import { Calendar, Clock, MapPin, Tag, Image, ChevronLeft, Upload, X, Plus } fro
 
 export default function CreateEventPage() {
   const [activeStep, setActiveStep] = useState(0);
-  interface EventData {
-    title: string;
-    description: string;
-    category: string;
-    tags: string[];
-    startDate: string;
-    endDate: string;
-    time: string;
-    duration: string;
-    location: string;
-    files: { name: string; selected: boolean; }[];
-  }
 
   const [eventData, setEventData] = useState<EventData>({
     title: '',
@@ -41,7 +29,7 @@ export default function CreateEventPage() {
     { id: 3, name: 'Upload' }
   ];
 
-  const handleInputChange = (e:any) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEventData({ ...eventData, [name]: value });
   };
@@ -53,14 +41,14 @@ export default function CreateEventPage() {
     }
   };
 
-  const removeTag = (tagToRemove:any) => {
+  const removeTag = (tagToRemove) => {
     setEventData({
       ...eventData,
       tags: eventData.tags.filter(tag => tag !== tagToRemove)
     });
   };
 
-  const toggleFileSelection = (fileName:any) => {
+  const toggleFileSelection = (fileName) => {
     setEventData({
       ...eventData,
       files: eventData.files.map(file => 

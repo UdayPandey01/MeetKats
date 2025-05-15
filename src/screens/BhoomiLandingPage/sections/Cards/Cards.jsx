@@ -2,18 +2,8 @@ import React from "react";
 import { Card, CardContent } from "../../../../components/ui/card";
 import { LinkIcon, SearchIcon } from "lucide-react";
 
-interface CardItem {
-  title: string;
-  description: string;
-  bgColor?: string;
-  icon?: string;
-  iconAlt?: string;
-  iconJsx?: React.ReactNode;
-  iconClassName?: string;
-}
-
-export const FeatureCards = (): JSX.Element => {
-  const cards: CardItem[] = [
+export const FeatureCards = ()=> {
+  const cards = [
     {
       title: "Micro Networking",
       description: "Connect with peers from your college, city, or field.",

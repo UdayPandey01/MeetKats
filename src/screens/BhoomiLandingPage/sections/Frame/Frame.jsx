@@ -46,7 +46,7 @@ const testimonials = [
 ];
 
 // Separate testimonial card component for better code organization
-const TestimonialCard = ({ testimonial }:{testimonial:any}) => {
+const TestimonialCard = ({ testimonial }) => {
   const isFirstCard = testimonial.id === 1;
   
   return (

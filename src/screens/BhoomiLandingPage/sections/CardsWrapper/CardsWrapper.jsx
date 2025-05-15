@@ -2,7 +2,7 @@ import { LinkIcon, SearchIcon } from "lucide-react";
 import React from "react";
 import { Card, CardContent } from "../../../../components/ui/card";
 
-export const CardsWrapper = (): JSX.Element => {
+export const CardsWrapper = ()=> {
   const cardData = [
     {
       title: "Micro Networking",

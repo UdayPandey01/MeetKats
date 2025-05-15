@@ -7,7 +7,7 @@ import { FeatureCards } from "./sections/Cards/Cards";
 import HeroSection from "./sections/HeroSection/Herosection";
 import Navbar from "./sections/Navbar/Navbar";
 
-export const BhoomiLandingPage = (): JSX.Element => {
+export const BhoomiLandingPage = ()=> {
   return (
     <div className="bg-white flex flex-row justify-center w-full">
       <div className="bg-white overflow-hidden w-full max-w-[1440px] relative">

@@ -38,7 +38,7 @@ const DivWrapper = () => {
 };
 
 // Card illustration component to maintain exact visuals
-const CardIllustration = ({ index }:{index:any}) => {
+const CardIllustration = ({ index }) => {
   return (
     <div className="relative w-full h-full">
       <div className="absolute w-72 h-[277px] top-[67px] left-3.5 bg-[#f5fafa]" />
@@ -92,7 +92,7 @@ const CardIllustration = ({ index }:{index:any}) => {
 };
 
 // Combined Step and Card component for mobile view
-const StepWithCard = ({ step, index }:{step:any,index:number}) => {
+const StepWithCard = ({ step, index }) => {
   return (
     <div className="flex flex-col items-center">
       {/* Step circle */}
