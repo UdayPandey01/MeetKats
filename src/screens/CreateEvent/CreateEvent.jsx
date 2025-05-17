@@ -1,19 +1,22 @@
 import { useState } from 'react';
 import { Calendar, Clock, MapPin, Tag, Image, ChevronLeft, Upload, X, Plus } from 'lucide-react';
+import { MdMeetingRoom } from 'react-icons/md';
 
 export default function CreateEventPage() {
-  const [activeStep, setActiveStep] = useState(0);
-
-  const [eventData, setEventData] = useState<EventData>({
+  const [activeStep, setActiveStep] = useState(2);
+  const [eventType, setEventType] = useState('In Person');;
+  const [eventData, setEventData] = useState({
     title: '',
     description: '',
     category: '',
     tags: [],
     startDate: '',
     endDate: '',
-    time: '',
-    duration: '4h 30m',
+    startTime: '',
+    endTime: '',
+    eventtype: eventType,
     location: '',
+    meeting: '',
     files: [
       { name: 'Banner-01.jpg', selected: true },
       { name: 'Booking.jpg', selected: true },
@@ -21,7 +24,6 @@ export default function CreateEventPage() {
     ]
   });
   const [currentTag, setCurrentTag] = useState('');
-
   const steps = [
     { id: 0, name: 'Details' },
     { id: 1, name: 'Date & Time' },
@@ -31,6 +33,7 @@ export default function CreateEventPage() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
     setEventData({ ...eventData, [name]: value });
   };
 
@@ -224,16 +227,33 @@ export default function CreateEventPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Date Range <span className="text-red-500">*</span>
+                  Start Date <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <Calendar size={16} className="text-gray-400" />
                   </div>
                   <input
-                    type="text"
-                    value="May 15, 2025 - May 21, 2025"
-                    readOnly
+                    type="date"
+                    name="startDate"
+                    value={eventData.startDate || "2023-10-01"}
+                    onChange={handleInputChange}
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+                <br/>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  End Date <span className="text-red-500">*</span>
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Calendar size={16} className="text-gray-400" />
+                  </div>
+                  <input
+                    type="date"
+                    name="startDate"
+                    value={eventData.startDate || "2023-10-01"}
+                    onChange={handleInputChange}
                     className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
@@ -248,37 +268,30 @@ export default function CreateEventPage() {
                     <Clock size={16} className="text-gray-400" />
                   </div>
                   <input
-                    type="text"
-                    name="time"
+                    type="time"
+                    name="startTime"
+                    value={eventData.time || "02:00 PM"}
+                    onChange={handleInputChange}
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+                <br/>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  End Time <span className="text-red-500">*</span>
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Clock size={16} className="text-gray-400" />
+                  </div>
+                  <input
+                    type="time"
+                    name="endTime"
                     value={eventData.time || "02:00 PM"}
                     onChange={handleInputChange}
                     className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
               </div>
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Duration
-              </label>
-              <select
-                name="duration"
-                value={eventData.duration}
-                onChange={handleInputChange}
-                className="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              >
-                <option value="30m">30 minutes</option>
-                <option value="1h">1 hour</option>
-                <option value="1h 30m">1 hour 30 minutes</option>
-                <option value="2h">2 hours</option>
-                <option value="3h">3 hours</option>
-                <option value="4h">4 hours</option>
-                <option value="4h 30m">4 hours 30 minutes</option>
-                <option value="5h">5 hours</option>
-                <option value="6h">6 hours</option>
-                <option value="All day">All day</option>
-              </select>
             </div>
           </div>
 
@@ -287,18 +300,35 @@ export default function CreateEventPage() {
             <h2 className="text-lg font-medium mb-6">Location</h2>
             
             <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className={`${(eventType=="Hybrid" || eventType=="Virtual")?"block":"hidden"} text-sm font-medium text-gray-700 mb-1`}>
                 Event Location <span className="text-red-500">*</span>
               </label>
-              <div className="relative">
+              <div className={`${(eventType=="Hybrid" || eventType=="Virtual")?"relative":"hidden"}`}>
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <MapPin size={16} className="text-gray-400" />
                 </div>
                 <input
-                  type="text"
+                  type="url"
                   name="location"
-                  placeholder="Physical address or virtual meeting link"
-                  value={eventData.location || "www.googlemeet.com/xyz-uvw-abc"}
+                  placeholder="www.googlemeet.com/xyz-uvw-abc"
+                  value={eventData.location}
+                  onChange={handleInputChange}
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <br/>
+              <label className={`${(eventType=="Hybrid" || eventType=="In Person")?"block":"hidden"} text-sm font-medium text-gray-700 mb-1`}>
+                Meeting Url <span className="text-red-500">*</span>
+              </label>
+              <div className={`${(eventType=="Hybrid" || eventType=="In Person")?"relative":"hidden"}`}>
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <MdMeetingRoom size={16} className="text-gray-400" />
+                </div>
+                <input
+                  type="url"
+                  name="meeting"
+                  placeholder={"www.googlemeet.com/xyz-uvw-abc"}
+                  value={eventData.location}
                   onChange={handleInputChange}
                   className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -308,16 +338,16 @@ export default function CreateEventPage() {
             <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-4">
               <h3 className="text-sm font-medium text-blue-800 mb-2">Location Options</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <button className="bg-white border border-gray-200 hover:border-blue-500 rounded-md p-3 text-left transition">
-                  <div className="font-medium">In Person</div>
+                <button className={`bg-white border ${eventType=='In Person'?"border-blue-500":"border-gray-200"} hover:border-blue-500 rounded-md p-3 text-left transition`} onClick={() => setEventType('In Person')}>
+                  <div className={`font-medium ${eventType=="In Person"?"text-blue-700":""}`}>In Person</div>
                   <div className="text-xs text-gray-500">Physical venue</div>
                 </button>
-                <button className="bg-white border border-blue-500 shadow-sm rounded-md p-3 text-left transition">
-                  <div className="font-medium text-blue-700">Virtual</div>
+                <button className={`bg-white border  ${eventType=='Virtual'?"border-blue-500":"border-gray-200"} hover:border-blue-500 rounded-md p-3 text-left transition`} onClick={() => setEventType('Virtual')}>
+                  <div className={`font-medium ${eventType=="Virtual"?"text-blue-700":""}`}>Virtual</div>
                   <div className="text-xs text-gray-500">Online meeting</div>
                 </button>
-                <button className="bg-white border border-gray-200 hover:border-blue-500 rounded-md p-3 text-left transition">
-                  <div className="font-medium">Hybrid</div>
+                <button className={`bg-white border  ${eventType=='Hybrid'?"border-blue-500":"border-gray-200"} hover:border-blue-500 rounded-md p-3 text-left transition`} onClick={() => setEventType('Hybrid')}>
+                  <div className={`font-medium ${eventType=="Hybrid"?"text-blue-700":""}`}>Hybrid</div>
                   <div className="text-xs text-gray-500">In-person & virtual</div>
                 </button>
               </div>
@@ -374,7 +404,7 @@ export default function CreateEventPage() {
               className={`px-6 py-2 text-sm font-medium rounded-md ${
                 activeStep === 0
                   ? 'text-gray-400 cursor-not-allowed'
-                  : 'text-gray-700 bg-gray-100 hover:bg-gray-200'
+                  : 'text-white bg-blue-500 hover:bg-blue-700'
               }`}
               disabled={activeStep === 0}
             >
@@ -386,7 +416,7 @@ export default function CreateEventPage() {
                 <button
                   type="button"
                   onClick={handleNextStep}
-                  className="px-6 py-2 bg-blue-500 text-white text-sm font-medium rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  className="px-6 py-2 bg-emerald-500 text-white text-sm font-medium rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                 >
                   Next
                 </button>
@@ -394,7 +424,7 @@ export default function CreateEventPage() {
                 <button
                   type="button"
                   onClick={() => console.log('Create event', eventData)}
-                  className="px-6 py-2 bg-blue-500 text-white text-sm font-medium rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  className="px-6 py-2 bg-emerald-500 text-white text-sm font-medium rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                 >
                   Create Event
                 </button>
